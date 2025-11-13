@@ -1,31 +1,97 @@
 // src/components/ui/ServiceCard.tsx
 
 import type { Service } from "../../types/Types";
+import { useState } from "react";
 
-// 1. Importamos o type que define a estrutura dos nossos dados
-
-
-// 2. Definimos que as props do componente são um objeto chamado 'service'
 interface ServiceCardProps {
   service: Service;
+  delay?: number;
+  variant?: "default" | "featured";
 }
 
-export function ServiceCard({ service }: ServiceCardProps) {
-  // 3. Desestruturamos os dados do serviço para facilitar o uso
+export function ServiceCard({
+  service,
+  delay = 0,
+  variant = "default",
+}: ServiceCardProps) {
   const { icon: Icon, title, description } = service;
+  const [isHovered, setIsHovered] = useState(false);
+
+  const cardVariants = {
+    default: "bg-white border border-gray-100",
+    featured:
+      "bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200 relative overflow-hidden",
+  };
+
+  const iconVariants = {
+    default: "bg-gradient-to-br from-blue-500 to-blue-600",
+    featured: "bg-gradient-to-br from-blue-600 to-cyan-600",
+  };
 
   return (
-    <div className="flex flex-col items-center md:items-start text-center md:text-left p-6 bg-white rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
-      {/* Ícone */}
-      <div className="mb-4">
-        <Icon className="text-blue-700" size={48} />
+    <div
+      className={`
+        relative p-8 rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl group
+        ${cardVariants[variant]}
+        ${isHovered ? "scale-105" : "scale-100"}
+      `}
+      style={{
+        animationDelay: `${delay}ms`,
+        animation: "fadeInUp 0.6s ease-out both",
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Featured Badge */}
+      {variant === "featured" && (
+        <div className="absolute top-4 right-4">
+          <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wide">
+            <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-1 animate-pulse"></span>
+            Popular
+          </span>
+        </div>
+      )}
+
+      {/* Background Effect */}
+      <div className="absolute inset-0 bg-linear-to-br from-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
+
+      {/* Ícone com efeito flutuante */}
+      <div className="relative z-10 mb-6">
+        <div
+          className={`
+          w-16 h-16 rounded-2xl flex items-center justify-center text-white shadow-lg
+          ${iconVariants[variant]}
+          transition-all duration-500 group-hover:scale-110 group-hover:rotate-3
+        `}
+        >
+          <Icon
+            size={28}
+            className="transition-transform duration-500 group-hover:scale-110"
+          />
+        </div>
+
+        {/* Efeito de brilho no hover */}
+        <div className="absolute -inset-2 bg-blue-400/10 rounded-xl blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
       </div>
 
       {/* Título */}
-      <h3 className="mb-2 text-xl font-bold text-gray-800">{title}</h3>
+      <h3
+        className={`
+        relative z-10 mb-4 text-xl font-bold leading-tight transition-colors duration-300
+        ${variant === "featured" ? "text-gray-900" : "text-gray-900"}
+        group-hover:text-gray-900
+      `}
+      >
+        {title}
+
+        {/* Linha decorativa sob o título */}
+        <div className="w-12 h-0.5 bg-linear-to-r from-blue-400 to-cyan-400 mt-3 rounded-full opacity-60 group-hover:w-16 transition-all duration-500"></div>
+      </h3>
 
       {/* Descrição */}
-      <p className="text-gray-600 leading-relaxed">{description}</p>
+      <p className="relative z-10 text-gray-600 leading-relaxed transition-colors duration-300 group-hover:text-gray-700">
+        {description}
+      </p>
     </div>
   );
 }

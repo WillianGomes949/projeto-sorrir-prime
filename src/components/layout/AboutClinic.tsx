@@ -1,69 +1,99 @@
 // src/components/layout/AboutClinic.tsx
-// (Ou src/components/sections/AboutClinic.tsx)
 
-import { FaCheckCircle } from 'react-icons/fa'; // Ícone para a lista de features
-import { SectionTitle } from '../ui/SectionTitle';
-import { aboutData } from '../../lib/db';
-
-// 1. Importando os dados da seção "Sobre" do nosso db
-
-
-// 2. Importando uma imagem (Você deve adicionar uma imagem em /src/assets/images/)
-// Exemplo: import ClinicImage from '../../assets/images/clinic-interior.jpg';
+import {
+  FaCheckCircle,
+  FaAward,
+  FaUserMd,
+  FaClinicMedical,
+} from "react-icons/fa";
+import { SectionTitle } from "../ui/SectionTitle";
+import { aboutData } from "../../lib/db";
 
 export function AboutClinic() {
-  const { subtitle, title, description, feature1, feature2, feature3 } = aboutData;
+  const { subtitle, title, description, feature1, feature2, feature3 } =
+    aboutData;
+
+  const stats = [
+    { icon: FaUserMd, value: "10+", label: "Especialistas" },
+    { icon: FaAward, value: "5+", label: "Anos de Experiência" },
+    { icon: FaClinicMedical, value: "2K+", label: "Pacientes Atendidos" },
+  ];
 
   return (
-    <section id="sobre" className="py-16 md:py-24 bg-white">
-      <div className="container mx-auto px-4">
-        
-        {/* Título da Seção */}
+    <section
+      id="sobre"
+      className="py-20 md:py-28 bg-linear-to-b from-white to-blue-50 relative overflow-hidden"
+    >
+      <div className="container mx-auto px-6 relative z-10">
+        {/* Section Header */}
         <SectionTitle
           subtitle={subtitle}
           title={title}
-          className="mb-12"
+          className="mb-16 text-center"
         />
 
-        {/* Layout de Duas Colunas */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          
-          {/* Coluna da Imagem */}
-          <div className="w-full h-80 lg:h-[500px] rounded-lg overflow-hidden shadow-xl">
-            {/* Use uma imagem real da sua pasta de assets aqui.
-              O ideal é uma foto do consultório ou da equipe.
-            */}
-            <img
-              // src={ClinicImage} // <-- Use a imagem importada
-              src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1470" // Imagem placeholder
-              alt="Interior da Clínica SorrirPrime"
-              className="w-full h-full object-cover"
-            />
+        {/* Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* Image Column */}
+          <div className="relative group">
+            <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl transform group-hover:scale-105 transition-transform duration-500">
+              <img
+                src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1470"
+                alt="Interior da Clínica SorrirPrime"
+                className="w-full h-96 lg:h-[500px] object-cover"
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent"></div>
+            </div>
+
+            {/* Floating Card */}
+            <div className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-2xl p-6 border border-gray-100 z-20">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                  <FaAward className="text-green-600 text-xl" />
+                </div>
+                <div>
+                  <div className="font-bold text-gray-900">Excelência</div>
+                  <div className="text-sm text-gray-600">Certificada</div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Coluna de Texto */}
-          <div className="flex flex-col justify-center">
-            
-            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+          {/* Content Column */}
+          <div className="flex flex-col justify-center space-y-8">
+            <p className="text-lg text-gray-600 leading-relaxed">
               {description}
             </p>
-            
-            {/* Lista de Features (Diferenciais) */}
+
+            {/* Features List */}
             <ul className="space-y-4">
-              <li className="flex items-center gap-3">
-                <FaCheckCircle className="text-blue-700 size-5" />
-                <span className="text-gray-700">{feature1}</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <FaCheckCircle className="text-blue-700 size-5" />
-                <span className="text-gray-700">{feature2}</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <FaCheckCircle className="text-blue-700 size-5" />
-                <span className="text-gray-700">{feature3}</span>
-              </li>
+              {[feature1, feature2, feature3].map((feature, index) => (
+                <li key={index} className="flex items-start gap-4 group">
+                  <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <FaCheckCircle className="text-blue-600 text-lg" />
+                  </div>
+                  <span className="text-gray-700 pt-1.5">{feature}</span>
+                </li>
+              ))}
             </ul>
 
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-gray-200">
+              {stats.map((stat, index) => (
+                <div
+                  key={index}
+                  className="text-center group hover:scale-105 transition-transform"
+                >
+                  <div className="w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center mx-auto mb-3 group-hover:shadow-xl transition-shadow">
+                    <stat.icon className="text-blue-600 text-2xl" />
+                  </div>
+                  <div className="font-bold text-2xl text-gray-900">
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-gray-600">{stat.label}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
