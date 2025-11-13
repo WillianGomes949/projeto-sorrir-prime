@@ -32,36 +32,42 @@ export const heroData = {
 // --- Dados da Seção de Serviços ---
 export const servicesData: Service[] = [
   {
+    id: 1,
     icon: FaTooth,
     title: "Clareamento Dental",
     description:
       "Tratamento moderno para dentes mais brancos e um sorriso mais brilhante.",
   },
   {
+    id: 2,
     icon: FaSyringe,
     title: "Implantes Dentários",
     description:
       "Recupere a função e a estética com implantes de titânio de alta qualidade.",
   },
   {
+    id: 3,
     icon: FaStethoscope,
     title: "Aparelhos Ortodônticos",
     description:
       "Alinhamos seu sorriso com aparelhos tradicionais ou alinhadores invisíveis.",
   },
   {
+    id: 4,
     icon: FaXRay,
     title: "Endodontia (Canal)",
     description:
       "Tratamento de canal sem dor, utilizando tecnologia de ponta para salvar seu dente.",
   },
   {
+    id: 5,
     icon: FaSmile,
     title: "Lentes de Contato Dental",
     description:
       "Facetas de porcelana ultrafinas para um sorriso perfeito e harmonioso.",
   },
   {
+    id: 6,
     icon: FaUserMd,
     title: "Limpeza e Profilaxia",
     description:

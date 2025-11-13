@@ -8,7 +8,7 @@ export interface NavLink {
 }
 
 export interface Service {
-  id: string;
+  id: number;
   title: string;
   description: string;
   icon: ElementType; // Permite passar o componente do react-icons (ex: FaTooth)
