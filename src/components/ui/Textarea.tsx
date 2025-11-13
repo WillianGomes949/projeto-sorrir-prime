@@ -19,7 +19,6 @@ export function Textarea({
   className = "",
   ...rest 
 }: TextareaProps) {
-  const [isFocused, setIsFocused] = useState(false);
   const [charCount, setCharCount] = useState(0);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -70,8 +69,6 @@ export function Textarea({
             ${getTextareaState()}
             ${className}
           `}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
           onChange={handleChange}
           maxLength={maxLength}
           {...rest}

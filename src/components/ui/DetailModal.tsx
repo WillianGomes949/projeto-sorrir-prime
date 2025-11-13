@@ -89,9 +89,9 @@ export function DetailModal({
       let response: ApiResponse;
 
       if (type === "appointment") {
-        response = await api.editAppointment(formData.id, formData as AppointmentPayload);
+        response = await api.editAppointment(formData as AppointmentPayload);
       } else {
-        response = await api.editContactSubmission(formData.id, formData as ContactFormPayload);
+        response = await api.editContactSubmission(formData as ContactFormPayload);
       }
 
       setApiResponse(response);
