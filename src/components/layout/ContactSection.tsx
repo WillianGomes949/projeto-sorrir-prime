@@ -18,6 +18,7 @@ import { api } from "../../services/ApiFAke";
 export function ContactSection() {
   const { address, email, phone } = contactData;
   const [formData, setFormData] = useState<ContactFormPayload>({
+    id: "",
     name: "",
     email: "",
     phone: "",
@@ -52,7 +53,7 @@ export function ContactSection() {
     setApiResponse(response);
 
     if (response.success) {
-      setFormData({ name: "", email: "", phone: "", message: "" });
+      setFormData({ id: "", name: "", email: "", phone: "", message: "" });
     }
   };
 
