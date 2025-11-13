@@ -11,7 +11,8 @@ export interface Service {
   id: number;
   title: string;
   description: string;
-  icon: ElementType; // Permite passar o componente do react-icons (ex: FaTooth)
+  icon: ElementType; 
+  imgUrl?: string;
 }
 
 export interface SocialLink {

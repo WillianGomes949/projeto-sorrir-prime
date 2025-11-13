@@ -37,6 +37,7 @@ export const servicesData: Service[] = [
     title: "Clareamento Dental",
     description:
       "Tratamento moderno para dentes mais brancos e um sorriso mais brilhante.",
+    imgUrl: "/images/cards/sorriso-clareamento.webp",
   },
   {
     id: 2,
@@ -44,6 +45,7 @@ export const servicesData: Service[] = [
     title: "Implantes Dentários",
     description:
       "Recupere a função e a estética com implantes de titânio de alta qualidade.",
+    imgUrl: "/images/cards/dentista-mostrando.webp",
   },
   {
     id: 3,
@@ -51,6 +53,7 @@ export const servicesData: Service[] = [
     title: "Aparelhos Ortodônticos",
     description:
       "Alinhamos seu sorriso com aparelhos tradicionais ou alinhadores invisíveis.",
+    imgUrl: "/images/cards/sorriso-aparelho.webp",
   },
   {
     id: 4,
@@ -58,6 +61,7 @@ export const servicesData: Service[] = [
     title: "Endodontia (Canal)",
     description:
       "Tratamento de canal sem dor, utilizando tecnologia de ponta para salvar seu dente.",
+    imgUrl: "/images/cards/tratamento-canal.webp",
   },
   {
     id: 5,
@@ -65,6 +69,7 @@ export const servicesData: Service[] = [
     title: "Lentes de Contato Dental",
     description:
       "Facetas de porcelana ultrafinas para um sorriso perfeito e harmonioso.",
+    imgUrl: "/images/cards/implante.webp",
   },
   {
     id: 6,
@@ -72,6 +77,7 @@ export const servicesData: Service[] = [
     title: "Limpeza e Profilaxia",
     description:
       "Prevenção é o melhor remédio. Mantenha sua saúde bucal em dia conosco.",
+    imgUrl: "/images/cards/limpesa.webp",
   },
 ];
 

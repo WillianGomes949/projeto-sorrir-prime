@@ -186,7 +186,7 @@ function AdminTable({ data, type, onViewDetails, onDelete, actionLoading }: Admi
                   </span>
                 </td>
                 <td className="py-4 px-6">
-                  <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="flex gap-2">
                     <button 
                       className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors disabled:opacity-50 border border-blue-200"
                       title="Ver detalhes"

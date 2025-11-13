@@ -38,7 +38,7 @@ export function AboutClinic() {
           <div className="relative group">
             <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl transform group-hover:scale-105 transition-transform duration-500">
               <img
-                src="/images/paciente.webp"
+                src="/images/images-grid/sorrisos.webp"
                 alt="Interior da Clínica SorrirPrime"
                 className="w-full h-96 lg:h-[500px] object-cover"
               />

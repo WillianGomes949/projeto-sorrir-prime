@@ -5,6 +5,7 @@ import { contactData, navLinks, socialLinks } from "../../lib/db";
 import { FaRegCopyright } from "react-icons/fa";
 import { IoMdPin } from "react-icons/io";
 import { IoMail, IoPhonePortrait } from "react-icons/io5";
+import { RiImageCircleAiFill } from "react-icons/ri";
 
 export function Footer() {
   const { address, email, phone } = contactData;
@@ -107,17 +108,24 @@ export function Footer() {
         {/* Divisor */}
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center">
-            <p className="text-gray-500 text-sm flex gap-4 justify-center items-center">
-              <FaRegCopyright />
-              <span>
-                {new Date().getFullYear()} SorrirPrime. Todos os direitos
-                reservados.
-              </span>
-            </p>
+            <div className="text-gray-500 text-sm flex flex-col justify-start items-start">
+              <div className="flex gap-4 justify-center items-center">
+                <FaRegCopyright />
+                <span>
+                  {new Date().getFullYear()} SorrirPrime. Todos os direitos
+                  reservados.
+                </span>
+              </div>
+              <div className="flex gap-4 justify-between items-start">
+                <RiImageCircleAiFill />
+                <span>Imagens Meramente ilustrativas. Feita po IA</span>
+              </div>
+            </div>
+
             <p className="text-gray-500 text-sm flex gap-2 justify-center items-center">
               <span>Desenvolvido por</span>
               <a
-                href="https://williangomes.com"
+                href="https://willian-gomes-949.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-400 hover:text-blue-300 transition-colors font-medium"

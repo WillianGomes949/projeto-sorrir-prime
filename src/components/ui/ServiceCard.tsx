@@ -14,7 +14,7 @@ export function ServiceCard({
   delay = 0,
   variant = "default",
 }: ServiceCardProps) {
-  const { icon: Icon, title, description } = service;
+  const { icon: Icon, title, description, imgUrl } = service;
   const [isHovered, setIsHovered] = useState(false);
 
   const cardVariants = {
@@ -53,7 +53,19 @@ export function ServiceCard({
       )}
 
       {/* Background Effect */}
-      <div className="absolute inset-0 bg-linear-to-br from-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl">
+        <div
+          className="
+          w-35 h-25 rounded-2xl flex items-center justify-center text-white shadow-lg
+          transition-all duration-500 group-hover:scale-110 group-hover:-rotate-3 translate-x-25"
+        >
+          <img
+            src={imgUrl}
+            alt="Pattern"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 rounded-2xl"
+          />
+        </div>
+      </div>
 
       {/* Ícone com efeito flutuante */}
       <div className="relative z-10 mb-6">
@@ -78,7 +90,7 @@ export function ServiceCard({
       <h3
         className={`
         relative z-10 mb-4 text-xl font-bold leading-tight transition-colors duration-300
-        ${variant === "featured" ? "text-gray-900" : "text-gray-900"}
+        ${variant === "featured" ? "text-gray-600" : "text-blue-900"}
         group-hover:text-gray-900
       `}
       >
