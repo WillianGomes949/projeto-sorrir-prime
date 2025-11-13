@@ -3,6 +3,7 @@ import { Hero } from '../components/layout/Hero';
 import { ServicesGrid } from '../components/layout/ServicesGrid';
 import { AboutClinic } from '../components/layout/AboutClinic';
 import { ContactSection } from '../components/layout/ContactSection';
+import TopButton from '../components/ui/TopButton';
 
 export function HomePage() {
   return (
@@ -11,6 +12,7 @@ export function HomePage() {
       <ServicesGrid />
       <AboutClinic />
       <ContactSection />
+      <TopButton/>
     </>
   );
 }
