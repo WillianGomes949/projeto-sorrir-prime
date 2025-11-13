@@ -2,30 +2,17 @@
 
 import type { AppointmentPayload, ContactFormPayload } from "../types/Types";
 
-// 1. Definição de uma Resposta de API Padrão
-// Uma API real sempre retorna um padrão (sucesso/erro/dados)
 export interface ApiResponse<T = any> {
   success: boolean;
   message: string;
   data?: T;
 }
 
-// 2. Simular a latência da rede (1 segundo)
-// Isso é CRUCIAL para que a gente possa testar "loading states"
 const FAKE_DELAY = 1000;
 const simulateDelay = () =>
   new Promise((resolve) => setTimeout(resolve, FAKE_DELAY));
 
-// --- Nossas Funções de API Falsas ---
-
-/**
- * Envia os dados do formulário de contato.
- * No mundo real, isso seria um POST para /api/v1/contact
- */
-
-/**
- * SIMULA a busca por horários disponíveis em um dia.
- */
+// Funções existentes mantidas...
 const getAvailableTimeSlots = async (
   date: string,
   serviceId: string
@@ -48,27 +35,24 @@ const getAvailableTimeSlots = async (
 const submitContactForm = async (
   formData: ContactFormPayload
 ): Promise<ApiResponse> => {
-  await simulateDelay(); // Simula o "carregando..."
+  await simulateDelay();
 
   try {
-    // Pegamos os envios antigos do localStorage (ou um array vazio)
     const submissions = JSON.parse(
       localStorage.getItem("contactSubmissions") || "[]"
     );
 
-    // Adicionamos o novo envio com uma data
     const newSubmission = {
       ...formData,
+      id: Date.now().toString(), // Adiciona ID único
       submittedAt: new Date().toISOString(),
     };
     submissions.push(newSubmission);
 
-    // Salvamos de volta no localStorage
     localStorage.setItem("contactSubmissions", JSON.stringify(submissions));
 
     console.log("API FAKE (localStorage):", submissions);
 
-    // Retorna a mesma resposta que uma API real retornaria
     return { success: true, message: "Formulário enviado com sucesso!" };
   } catch (error) {
     const message =
@@ -80,9 +64,6 @@ const submitContactForm = async (
   }
 };
 
-/**
- * Salva o agendamento no localStorage.
- */
 const submitAppointment = async (
   formData: AppointmentPayload
 ): Promise<ApiResponse> => {
@@ -95,6 +76,7 @@ const submitAppointment = async (
 
     const newAppointment = {
       ...formData,
+      id: Date.now().toString(), // Adiciona ID único
       submittedAt: new Date().toISOString(),
     };
     appointments.push(newAppointment);
@@ -115,13 +97,7 @@ const submitAppointment = async (
   }
 };
 
-/**
- * Pega todos os envios de contato (só para testar)
- * No mundo real, isso seria um GET para /api/v1/contact
- */
-const getContactSubmissions = async (): Promise<
-  ApiResponse<ContactFormPayload[]>
-> => {
+const getContactSubmissions = async (): Promise<ApiResponse<ContactFormPayload[]>> => {
   await simulateDelay();
 
   try {
@@ -136,12 +112,9 @@ const getContactSubmissions = async (): Promise<
   }
 };
 
-const getAppointments = async (): Promise<
-  ApiResponse<AppointmentPayload[]>
-> => {
-  await simulateDelay(); // Simula o carregamento da rede
+const getAppointments = async (): Promise<ApiResponse<AppointmentPayload[]>> => {
+  await simulateDelay();
   try {
-    // Busca os dados do localStorage
     const appointments = JSON.parse(
       localStorage.getItem("appointments") || "[]"
     );
@@ -157,13 +130,169 @@ const getAppointments = async (): Promise<
   }
 };
 
-// 3. Exportamos todas as funções em um único objeto 'api'
-// Esta é a MÁGICA. Nossos componentes vão importar 'api'.
-// No futuro, podemos criar 'ApiReal.ts' e só trocar a exportação.
+// NOVAS FUNÇÕES DE DELETE
+const deleteAppointment = async (id: string): Promise<ApiResponse> => {
+  await simulateDelay();
+
+  try {
+    const appointments = JSON.parse(
+      localStorage.getItem("appointments") || "[]"
+    );
+    
+    const filteredAppointments = appointments.filter((apt: any) => apt.id !== id);
+    
+    localStorage.setItem("appointments", JSON.stringify(filteredAppointments));
+
+    console.log("API FAKE: Agendamento deletado - ID:", id);
+    
+    return {
+      success: true,
+      message: "Agendamento excluído com sucesso.",
+    };
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Erro desconhecido";
+    return { success: false, message: `Erro ao excluir agendamento: ${message}` };
+  }
+};
+
+const deleteContactSubmission = async (id: string): Promise<ApiResponse> => {
+  await simulateDelay();
+
+  try {
+    const submissions = JSON.parse(
+      localStorage.getItem("contactSubmissions") || "[]"
+    );
+    
+    const filteredSubmissions = submissions.filter((sub: any) => sub.id !== id);
+    
+    localStorage.setItem("contactSubmissions", JSON.stringify(filteredSubmissions));
+
+    console.log("API FAKE: Submissão de contato deletada - ID:", id);
+    
+    return {
+      success: true,
+      message: "Mensagem de contato excluída com sucesso.",
+    };
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Erro desconhecido";
+    return { success: false, message: `Erro ao excluir mensagem: ${message}` };
+  }
+};
+// NOVA FUNÇÃO DE EDITAR AGENDAMENTO
+const editAppointment = async (
+  updatedData: AppointmentPayload & { id: string }
+): Promise<ApiResponse> => {
+  await simulateDelay();
+
+  try {
+    const appointments = JSON.parse(
+      localStorage.getItem("appointments") || "[]"
+    );
+    
+    // Encontra o índice do agendamento a ser editado
+    const index = appointments.findIndex((apt: any) => apt.id === updatedData.id);
+
+    if (index === -1) {
+      return { success: false, message: "Agendamento não encontrado." };
+    }
+    
+    // Preserva os dados originais (como submittedAt) e mescla com os novos dados
+    const originalItem = appointments[index];
+    appointments[index] = { ...originalItem, ...updatedData };
+    
+    localStorage.setItem("appointments", JSON.stringify(appointments));
+
+    console.log("API FAKE: Agendamento editado - ID:", updatedData.id);
+    
+    return {
+      success: true,
+      message: "Agendamento atualizado com sucesso.",
+      data: appointments[index], // Retorna o dado atualizado
+    };
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Erro ao editar agendamento";
+    return { success: false, message };
+  }
+};
+
+// NOVA FUNÇÃO DE EDITAR MENSAGEM DE CONTATO
+const editContactSubmission = async (
+  updatedData: ContactFormPayload & { id: string }
+): Promise<ApiResponse> => {
+  await simulateDelay();
+
+  try {
+    const submissions = JSON.parse(
+      localStorage.getItem("contactSubmissions") || "[]"
+    );
+    
+    // Encontra o índice da mensagem a ser editada
+    const index = submissions.findIndex((sub: any) => sub.id === updatedData.id);
+
+    if (index === -1) {
+      return { success: false, message: "Mensagem não encontrada." };
+    }
+
+    // Preserva os dados originais e mescla com os novos
+    const originalItem = submissions[index];
+    submissions[index] = { ...originalItem, ...updatedData };
+    
+    localStorage.setItem("contactSubmissions", JSON.stringify(submissions));
+
+    console.log("API FAKE: Submissão de contato editada - ID:", updatedData.id);
+    
+    return {
+      success: true,
+      message: "Mensagem de contato atualizada com sucesso.",
+      data: submissions[index], // Retorna o dado atualizado
+    };
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Erro ao editar mensagem";
+    return { success: false, message };
+  }
+};
+
+// Função para visualizar detalhes (simulação)
+const getDetails = async (id: string, type: 'appointment' | 'submission'): Promise<ApiResponse> => {
+  await simulateDelay();
+  
+  try {
+    const storageKey = type === 'appointment' ? 'appointments' : 'contactSubmissions';
+    const items = JSON.parse(localStorage.getItem(storageKey) || "[]");
+    const item = items.find((item: any) => item.id === id);
+    
+    if (item) {
+      return {
+        success: true,
+        message: "Detalhes carregados com sucesso.",
+        data: item
+      };
+    } else {
+      return {
+        success: false,
+        message: "Item não encontrado."
+      };
+    }
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Erro desconhecido";
+    return { success: false, message: `Erro ao carregar detalhes: ${message}` };
+  }
+};
+
 export const api = {
   submitContactForm,
   getContactSubmissions,
   getAvailableTimeSlots,
   submitAppointment,
   getAppointments,
+  deleteAppointment,
+  deleteContactSubmission,
+  getDetails,
+  editAppointment,
+  editContactSubmission,
+
 };

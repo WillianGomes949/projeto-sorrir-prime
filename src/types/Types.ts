@@ -8,6 +8,7 @@ export interface NavLink {
 }
 
 export interface Service {
+  id: string;
   title: string;
   description: string;
   icon: ElementType; // Permite passar o componente do react-icons (ex: FaTooth)
@@ -27,18 +28,23 @@ export interface ContactInfo {
   whatsappApi: string; // Link direto para a API do WhatsApp
 }
 // Payload do formulário de contato
-export interface ContactFormPayload {
+export interface ContactFormPayload extends BasePayload {
   name: string;
   email: string;
   phone: string;
   message?: string;
 }
-export interface AppointmentPayload {
+
+export interface BasePayload {
+  id: string;
   name: string;
-  email: string;
   phone: string;
-  serviceId: string; // <-- NOVO: O serviço que o cliente quer
-  date: string;      // <-- NOVO: A data que ele escolheu
-  time: string;      // <-- NOVO: O horário que ele escolheu
+  email: string;
   message?: string;
+  submittedAt?: string;
+}
+export interface AppointmentPayload extends BasePayload {
+  serviceId: string;
+  date: string;
+  time: string;
 }
