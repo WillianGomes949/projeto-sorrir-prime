@@ -21,8 +21,8 @@ const DentalServicesMarquee = () => {
   ];
 
   return (
-    <div className="-translate-y-8 w-full h-15 bg-linear-to-l from-blue-400 to-cyan-100 md:py-12 flex justify-center items-center group">
-      <div className="inset-0 max-w-7xl mx-auto px-4 mask-x-from-90% mask-x-to-95%">
+    <div className="-translate-y-8 w-full h-15 bg-linear-to-l from-blue-400 to-cyan-100 md:py-12 flex justify-center items-center group overflow-hidden">
+      <div className="w-4/5 md:max-w-7xl mx-auto px-4 mask-x-from-90% mask-x-to-95%">
         <div className="overflow-hidden">
           <div
             className="flex space-x-8
