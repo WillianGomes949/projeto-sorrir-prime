@@ -23,6 +23,7 @@ export function SchedulingSection() {
   const today = new Date().toISOString().split("T")[0];
 
   const [formData, setFormData] = useState<AppointmentPayload>({
+    id: "",
     name: "",
     email: "",
     phone: "",
@@ -85,6 +86,7 @@ export function SchedulingSection() {
 
     if (response.success) {
       setFormData({
+        id: "",
         name: "",
         email: "",
         phone: "",
