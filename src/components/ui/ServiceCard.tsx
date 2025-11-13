@@ -53,11 +53,11 @@ export function ServiceCard({
       )}
 
       {/* Background Effect */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl">
+      <div className="absolute inset-0 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 rounded-2xl">
         <div
           className="
           w-35 h-25 rounded-2xl flex items-center justify-center text-white shadow-lg
-          transition-all duration-500 group-hover:scale-110 group-hover:-rotate-3 translate-x-25"
+          transition-all duration-500 md:group-hover:scale-110 md:group-hover:-rotate-3 -rotate-3 md:group-hover:translate-x-25 translate-x-15 -translate-y-2 border-8 border-amber-50"
         >
           <img
             src={imgUrl}
