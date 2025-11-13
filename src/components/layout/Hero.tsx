@@ -2,7 +2,7 @@
 
 import { CgCheck } from "react-icons/cg";
 import { Button } from "../ui/Button";
-import { BiShield, BiSmile } from "react-icons/bi";
+import { BiShield} from "react-icons/bi";
 
 export function Hero() {
   return (
@@ -68,9 +68,11 @@ export function Hero() {
           {/* Image/Visual Content */}
           <div className="relative">
             <div className="relative z-10 bg-white rounded-2xl shadow-2xl p-8 transform rotate-2 hover:rotate-0 transition-transform duration-300">
-              <div className="aspect-square bg-linear-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
-                <BiSmile size={80} className="text-white/50"/>
-              </div>
+              <img
+                src="/images/dentista.webp"
+                alt="Dentista"
+                className="rounded-xl shadow-lg mb-6 transform -rotate-3 hover:rotate-0 transition-transform duration-300"
+              />
             </div>
 
             
